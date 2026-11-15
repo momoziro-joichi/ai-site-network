@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import {sites} from '../config/sites.js';
+const key=process.env.SITE_KEY||'weather'; const s=sites[key];
+---
+<Base><h1>{s.name}</h1><p>{s.tagline}</p><section class="panel"><h2>無料ツール</h2><p>ブラウザ上で計算・学習できます。</p><a href="/tool/">ツールを使う</a></section><section class="panel"><h2>実験室</h2><a href="/lab/">グラフ・シミュレーション</a></section>{key==='weather'&&<section class="panel"><h2>気象予報士の学習</h2><p><a href="/learn/">教科書</a> · <a href="/quiz/">問題集</a> · <a href="/simulator/">気塊モデル</a></p></section>}<div class="ad">広告枠（現在配信なし）</div></Base>
