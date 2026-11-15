@@ -1,4 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+const key=process.env.SITE_KEY||'weather';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const items=[['ホーム','/','サイトのトップページ'],['計算ツール','/tool/','計算や英語練習'],['実験室','/lab/','実験と学習'],['学習ガイド','/guide/','基礎解説'],...(key==='weather'?[['気象教科書','/learn/','気圧 湿度 前線 天気図'],['確認問題','/quiz/','気象予報士 練習'],['気塊シミュレーター','/simulator/','露点 雲底'],['天気図モデル','/weather-map/','高気圧 低気圧 等圧線'],['雲の実験室','/cloud-lab/','雲 断熱変化 気温 湿度']]:[])];
 ---
-<Base><h1>サイト内検索</h1><p>現時点では検索インデックスを実装していません。ナビゲーションから目的のページを選んでください。</p></Base>
+<Base title="サイト内検索"><PageIntro eyebrow="SITE SEARCH" title="サイト内検索" description="ページ名やキーワードから、このサイトの機能を探せます。" number="⌕"/><section class="panel"><label for="query">検索キーワード</label><input id="query" type="search" placeholder="例：気圧、計算、問題" autocomplete="off"/><p id="count" class="muted" aria-live="polite"></p><div id="results" class="results">{items.map(([title,path,desc])=><a class="result" data-keywords={(title+' '+desc).toLowerCase()} href={base+path}><strong>{title}</strong><span>{desc} ↗</span></a>)}</div></section></Base>
+<style>input{display:block;width:100%;margin:10px 0 16px}.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.result{padding:17px;border:1px solid var(--line);border-radius:12px;text-decoration:none;display:grid;gap:5px}.result:hover{background:var(--accent-light)}.result span{font-size:.8rem;color:var(--muted)}.result[hidden]{display:none}@media(max-width:650px){.results{grid-template-columns:1fr}}</style>
+<script>
+const q=document.getElementById('query'),rows=[...document.querySelectorAll('.result')],count=document.getElementById('count');const filter=()=>{const term=q.value.trim().toLowerCase();let n=0;rows.forEach(x=>{const visible=x.dataset.keywords.includes(term);x.hidden=!visible;if(visible)n++});count.textContent=n+' 件のページが見つかりました'};q.addEventListener('input',filter);filter();
+</script>
