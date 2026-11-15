@@ -43,3 +43,5 @@ npm run build:all
 4. ワークフロー成功後、`https://momoziro-joichi.github.io/ai-site-network/` にアクセスする。
 
 5サイトは `/weather/`、`/math/`、`/rail/`、`/english/`、`/tools/` からアクセスできます。現時点では**公開の成功は未確認**です。
+
+<!-- GitHub Pages deployment verification requested 2026-11-16. -->
