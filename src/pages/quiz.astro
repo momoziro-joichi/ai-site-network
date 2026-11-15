@@ -1,0 +1,8 @@
+---
+import Base from '../layouts/Base.astro';
+const qs=[['乾燥断熱減率の代表値は？',['約9.8 ℃/km','約1 ℃/km','約30 ℃/km'],0],['相対湿度100%とは？',['空気が水だけになる','水蒸気圧が飽和水蒸気圧に等しい','雨が必ず降る'],1],['気圧のSI単位は？',['パスカル','ジュール','ワット'],0],['風向の北風とは？',['北へ吹く','北から吹く','北半球だけの風'],1]];
+---
+<Base><h1>気象の確認問題</h1><p>4問の簡易確認問題です。</p><form class="panel" id="quiz">{qs.map(([q,opts],i)=><fieldset><legend>{i+1}. {q}</legend>{opts.map((o,j)=><label style="display:block;margin:8px 0"><input type="radio" name={'q'+i} value={j}/> {o}</label>)}</fieldset>)}<button type="submit">採点する</button><output id="score" aria-live="polite"></output></form></Base>
+<script define:vars={{answers:qs.map(q=>q[2])}}>
+document.getElementById('quiz')?.addEventListener('submit',e=>{e.preventDefault();let score=0;answers.forEach((a,i)=>{const v=new FormData(e.currentTarget).get('q'+i);if(v!==null&&Number(v)===a)score++});document.getElementById('score').textContent=score+' / '+answers.length+' 問正解'})
+</script>
