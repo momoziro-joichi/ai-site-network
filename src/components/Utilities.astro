@@ -1,7 +1,7 @@
 ---
 const key=process.env.SITE_KEY||'weather';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
-const pages=[['ホーム','/'],['計算ツール','/tool/'],['実験室','/lab/'],['学習ガイド','/guide/'],...(key==='weather'?[['気象教科書','/learn/'],['確認問題','/quiz/'],['気塊シミュレーター','/simulator/'],['天気図モデル','/weather-map/'],['雲の実験室','/cloud-lab/']]:[])];
+const pages=[['ホーム','/'],['計算ツール','/tool/'],['実験室','/lab/'],['学習ガイド','/guide/'],...(key==='weather'?[['気象教科書','/learn/'],['確認問題','/quiz/'],['気塊シミュレーター','/simulator/'],['最新の気象情報','/live-weather/'],['天気図モデル','/weather-map/'],['雲の実験室','/cloud-lab/']]:[])];
 ---
 <div class="utilities" data-base={base} data-site={key}>
 <button type="button" id="theme-toggle" aria-label="ダークモード切替" title="テーマ切替">◐</button>
