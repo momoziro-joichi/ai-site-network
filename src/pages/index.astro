@@ -1,8 +1,52 @@
 ---
 import Base from '../layouts/Base.astro';
 import {sites} from '../config/sites.js';
-const key=process.env.SITE_KEY||'weather'; const s=sites[key];
+const key=process.env.SITE_KEY||'weather';
+const s=sites[key];
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const href=(p)=>base+p;
+const config={
+weather:{eyebrow:'WEATHER SCIENCE / LEARNING LAB',heading:'空を知る。\n世界が変わる。',lead:'気象のしくみを、読む・解く・動かす。身近な空から始める、科学の学習室。',symbol:'☁',features:[['01','気象の教科書','大気・気圧・雲など、基礎を章ごとに整理。','/learn/'],['02','確認問題','知識を確かめる4問のミニクイズ。','/quiz/'],['03','気塊シミュレーター','温度と湿度を変え、気塊の変化を可視化。','/simulator/']]},
+math:{eyebrow:'MATHEMATICS / TOOL LAB',heading:'数式の向こうに、\n発見がある。',lead:'計算するだけで終わらない。数と式の関係を、手を動かして確かめよう。',symbol:'∑',features:[['01','二次方程式ツール','係数を入力して解と判別式を確認。','/tool/'],['02','数学実験室','数式を直感的に理解するための入口。','/lab/'],['03','基礎ガイド','数学の考え方をコンパクトに整理。','/guide/']]},
+rail:{eyebrow:'RAILWAY / GEOGRAPHY LAB',heading:'移動を、\n数字で読み解く。',lead:'距離、速度、時間。鉄道と地理の世界を、データの視点から探究する。',symbol:'↗',features:[['01','所要時間計算','加減速を考慮した簡易モデルで計算。','/tool/'],['02','交通実験室','鉄道の運行モデルを学ぶ入口。','/lab/'],['03','基礎ガイド','平均速度と最高速度の違いを理解。','/guide/']]},
+english:{eyebrow:'ENGLISH / DAILY PRACTICE',heading:'使える英語を、\n少しずつ。',lead:'日常の一言から始める英語学習。短く、気軽に、毎日続けよう。',symbol:'Aa',features:[['01','接客英語クイズ','よく使う英語表現を選択式で練習。','/tool/'],['02','英語実験室','実践的なフレーズの学習入口。','/lab/'],['03','基礎ガイド','身近な英語の使い方を確認。','/guide/']]},
+tools:{eyebrow:'EVERYDAY / UTILITY TOOLS',heading:'ちょっと便利を、\nもっと手軽に。',lead:'日々の小さな作業をすばやく。シンプルで使いやすい無料ツール。',symbol:'✳',features:[['01','文字数カウント','文章の文字数・行数・バイト数を計算。','/tool/'],['02','ツール実験室','便利な機能を探すための入口。','/lab/'],['03','使い方ガイド','文字数とバイト数の違いを解説。','/guide/']]}
+};
+const v=config[key];
 ---
-<Base><h1>{s.name}</h1><p>{s.tagline}</p><section class="panel"><h2>無料ツール</h2><p>ブラウザ上で計算・学習できます。</p><a href={href('/tool/')}>ツールを使う</a></section><section class="panel"><h2>実験室</h2><a href={href('/lab/')}>グラフ・シミュレーション</a></section>{key==='weather'&&<section class="panel"><h2>気象予報士の学習</h2><p><a href={href('/learn/')}>教科書</a> · <a href={href('/quiz/')}>問題集</a> · <a href={href('/simulator/')}>気塊モデル</a></p></section>}<div class="ad">広告枠（現在配信なし）</div></Base>
+<Base>
+<section class="hero">
+<div class="hero-copy"><p class="eyebrow"><span class="eyebrow-dot"></span>{v.eyebrow}</p><h1>{v.heading.split('\n').map((line,i)=><span class={i===1?'accent-line':''}>{line}<br/></span>)}</h1><p class="hero-lead">{v.lead}</p><div class="hero-actions"><a class="primary-action" href={href('/tool/')}>無料で使ってみる <span aria-hidden="true">↗</span></a><a class="secondary-action" href={href('/guide/')}>ガイドを見る <span aria-hidden="true">→</span></a></div><p class="hero-note">登録不要　·　ブラウザですぐ使える</p></div>
+<div class="hero-visual" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="visual-core">{v.symbol}</div><div class="float-label label-one">EXPLORE <span>↗</span></div><div class="float-label label-two">LEARN · CREATE</div><div class="visual-dots"></div></div>
+</section>
+<section class="features"><div class="section-heading"><div><p class="eyebrow">EXPLORE THE SITE</p><h2>ここから始めよう。</h2></div><p>興味のあるテーマを選んで、<br/>自由に学び、試してみてください。</p></div><div class="feature-grid">{v.features.map(([number,title,description,path])=><a class="feature-card" href={href(path)}><span class="feature-top"><span class="feature-number">{number}</span><span class="feature-arrow" aria-hidden="true">↗</span></span><h3>{title}</h3><p>{description}</p><span class="feature-more">詳しく見る <span aria-hidden="true">→</span></span></a>)}</div></section>
+<section class="bottom-banner"><div><p class="eyebrow">START EXPLORING</p><h2>まずは、ひとつ試してみよう。</h2><p>気になる機能から、気軽にスタート。</p></div><a href={href('/tool/')}>ツールを開く <span aria-hidden="true">↗</span></a></section>
+<div class="ad">広告枠（現在配信なし）</div>
+</Base>
+<style>
+.hero{display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:35px;min-height:520px;padding:20px 0 55px}
+.eyebrow{font-size:.72rem;letter-spacing:.18em;font-weight:800;color:var(--accent);margin:0 0 23px}
+.eyebrow-dot{display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%;margin-right:11px;vertical-align:middle}
+.hero h1{margin:0 0 26px;font-size:clamp(2.5rem,5.3vw,4.7rem);letter-spacing:-.07em;line-height:1.35}
+.accent-line{color:var(--accent)}
+.hero-lead{color:#586980;font-size:1rem;line-height:2;max-width:490px;margin-bottom:30px}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.primary-action,.secondary-action{display:inline-flex;align-items:center;justify-content:center;gap:19px;text-decoration:none;padding:14px 23px;border-radius:13px;font-size:.89rem;font-weight:800}
+.secondary-action{color:#34455d}
+.hero-note{font-size:.74rem;color:#8391a4;margin:17px 0 0}
+.hero-visual{height:385px;position:relative;display:grid;place-items:center;border-radius:36px;background:radial-gradient(circle at 50% 47%,color-mix(in srgb,var(--accent) 20%,white),#f4f7fb 63%);overflow:hidden}
+.orbit{position:absolute;border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);border-radius:50%;width:300px;height:300px}.orbit-two{width:410px;height:410px;border-style:dashed;opacity:.6}
+.visual-core{width:190px;height:190px;border-radius:47px;display:grid;place-items:center;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 80%,white),var(--accent));color:white;font-size:6.4rem;font-weight:800;box-shadow:0 35px 70px color-mix(in srgb,var(--accent) 24%,transparent);transform:rotate(-9deg);line-height:1}
+.float-label{position:absolute;background:rgba(255,255,255,.93);padding:12px 17px;border:1px solid #e9edf3;border-radius:12px;box-shadow:0 10px 30px rgba(40,65,100,.09);font-size:.67rem;letter-spacing:.12em;font-weight:800;color:#42536a}
+.float-label span{color:var(--accent);margin-left:10px}.label-one{right:8%;top:19%}.label-two{left:6%;bottom:17%}
+.visual-dots{position:absolute;bottom:33px;right:28px;width:55px;height:55px;background-image:radial-gradient(var(--accent) 1.5px,transparent 1.5px);background-size:10px 10px;opacity:.28}
+.features{padding:28px 0 55px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.section-heading .eyebrow{margin-bottom:8px}.section-heading h2{margin:0;font-size:clamp(1.7rem,3vw,2.3rem)}.section-heading>p{color:#76849a;font-size:.83rem;line-height:1.9;margin:0}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.feature-card{display:flex;flex-direction:column;min-height:245px;background:#fff;border:1px solid #e3eaf2;border-radius:22px;padding:25px;text-decoration:none;box-shadow:0 8px 30px rgba(20,43,70,.035);transition:transform .2s,border-color .2s,box-shadow .2s}
+.feature-card:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--accent) 45%,white);box-shadow:0 15px 36px rgba(20,43,70,.09)}
+.feature-top{display:flex;justify-content:space-between;align-items:center}.feature-number{font-size:.75rem;font-weight:800;color:var(--accent)}.feature-arrow{display:grid;place-items:center;width:31px;height:31px;background:var(--accent-light);border-radius:9px;color:var(--accent)}
+.feature-card h3{font-size:1.13rem;margin:29px 0 9px}.feature-card p{font-size:.81rem;color:#718198;line-height:1.85}.feature-more{margin-top:auto;padding-top:16px;color:var(--accent);font-size:.77rem;font-weight:800}
+.bottom-banner{display:flex;justify-content:space-between;align-items:center;gap:20px;background:#19283d;color:#fff;border-radius:25px;padding:36px 40px;margin-bottom:28px}.bottom-banner h2{color:#fff;margin:0 0 10px}.bottom-banner p{color:#bac6d6;margin:0;font-size:.85rem}.bottom-banner .eyebrow{color:#8cbedf;margin-bottom:9px}.bottom-banner>a{background:white;color:#19283d;padding:13px 19px;border-radius:11px;text-decoration:none;font-weight:800;font-size:.83rem;white-space:nowrap}
+@media(max-width:850px){.hero{grid-template-columns:1fr;min-height:0;padding:18px 0 42px}.hero-visual{height:260px;max-width:560px;width:100%;margin:auto}.visual-core{width:135px;height:135px;border-radius:32px;font-size:4.5rem}.orbit{width:210px;height:210px}.orbit-two{width:300px;height:300px}.feature-grid{grid-template-columns:1fr}.feature-card{min-height:185px}.feature-card h3{margin-top:15px}.section-heading>p{display:none}}
+@media(max-width:520px){.hero h1{font-size:clamp(2.45rem,11vw,3.4rem)}.hero-visual{height:225px;border-radius:22px}.bottom-banner{flex-direction:column;align-items:flex-start;padding:27px 25px}.bottom-banner>a{width:100%;text-align:center}.hero-actions{gap:9px}.primary-action,.secondary-action{padding:12px 14px}}
+</style>
