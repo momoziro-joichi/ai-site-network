@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+---
+<Base title="マイページ"><PageIntro eyebrow="MY SPACE" title="お気に入り・閲覧履歴" description="このブラウザに保存されたページを振り返れます。アカウント登録は不要です。" number="★"/><div class="personal-grid"><section class="panel"><h2>☆ お気に入り</h2><div id="favorites"></div></section><section class="panel"><h2>◷ 閲覧履歴</h2><div id="history"></div><button id="clear-history" type="button">履歴を削除</button></section></div><p class="muted">データはこの端末のブラウザ内（localStorage）にのみ保存されます。端末間の同期や学習成績の保存は行いません。</p></Base>
+<style>.personal-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.personal-grid .panel{margin:0}.personal-grid a{display:block;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;font-weight:600}.personal-grid button{margin-top:18px;font-size:.83rem}.muted{margin-top:24px;font-size:.82rem}@media(max-width:700px){.personal-grid{grid-template-columns:1fr}}</style>
+<script define:vars={{base}}>
+const read=k=>{try{const v=JSON.parse(localStorage.getItem(k)||'[]');return Array.isArray(v)?v:[]}catch{return []}};
+const site=document.documentElement.dataset.site;
+const render=(id,key)=>{const box=document.getElementById(id);box.replaceChildren();const items=read(key).filter(x=>x.site===site).slice(0,20);if(!items.length){box.textContent='まだ登録されていません。';return}for(const x of items){if(typeof x.path!=='string'||!x.path.startsWith('/')||x.path.startsWith('//'))continue;const a=document.createElement('a');a.href=base+x.path;a.textContent=String(x.title||x.path);box.append(a)}};
+render('favorites','ai-site-network-favorites');render('history','ai-site-network-history');
+document.getElementById('clear-history').addEventListener('click',()=>{try{const all=read('ai-site-network-history').filter(x=>x.site!==site);localStorage.setItem('ai-site-network-history',JSON.stringify(all))}catch{}render('history','ai-site-network-history')});
+</script>
