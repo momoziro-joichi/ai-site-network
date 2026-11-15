@@ -1,0 +1,1 @@
+import {spawnSync} from 'node:child_process';for(const key of ['weather','math','rail','english','tools']){const r=spawnSync('npm',['run','build'],{stdio:'inherit',env:{...process.env,SITE_KEY:key},shell:process.platform==='win32'});if(r.status!==0)process.exit(r.status||1)}
