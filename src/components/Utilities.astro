@@ -1,0 +1,37 @@
+---
+const key=process.env.SITE_KEY||'weather';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const pages=[['ホーム','/'],['計算ツール','/tool/'],['実験室','/lab/'],['学習ガイド','/guide/'],...(key==='weather'?[['気象教科書','/learn/'],['確認問題','/quiz/'],['気塊シミュレーター','/simulator/'],['天気図モデル','/weather-map/'],['雲の実験室','/cloud-lab/']]:[])];
+---
+<div class="utilities" data-base={base} data-site={key}>
+<button type="button" id="theme-toggle" aria-label="ダークモード切替" title="テーマ切替">◐</button>
+<button type="button" id="favorite-toggle" aria-label="このページをお気に入りに登録" title="お気に入り">☆</button>
+<a href={base+'/search/'} title="サイト内検索" aria-label="検索">⌕</a>
+<a href={base+'/my-learning/'} title="お気に入り・閲覧履歴" aria-label="マイページ">☷</a>
+</div>
+<script is:inline>
+(function(){
+const root=document.querySelector('.utilities');if(!root)return;
+const key='ai-site-network-theme';
+const get=()=>{try{return localStorage.getItem(key)||'light'}catch{return 'light'}};
+const set=v=>{document.documentElement.dataset.theme=v;try{localStorage.setItem(key,v)}catch{}};
+set(get());
+document.getElementById('theme-toggle')?.addEventListener('click',()=>set(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+const site=root.dataset.site,base=root.dataset.base;
+const path=location.pathname.replace(base,'')||'/';
+const favKey='ai-site-network-favorites';
+const histKey='ai-site-network-history';
+const read=k=>{try{const v=JSON.parse(localStorage.getItem(k)||'[]');return Array.isArray(v)?v:[]}catch{return []}};
+const write=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const entry={site,path,title:document.title,date:new Date().toISOString()};
+write(histKey,[entry,...read(histKey).filter(x=>!(x.site===site&&x.path===path))].slice(0,40));
+const btn=document.getElementById('favorite-toggle');
+const refresh=()=>{const on=read(favKey).some(x=>x.site===site&&x.path===path);btn.textContent=on?'★':'☆';btn.setAttribute('aria-label',on?'お気に入りを解除':'このページをお気に入りに登録')};
+btn?.addEventListener('click',()=>{const list=read(favKey);const on=list.some(x=>x.site===site&&x.path===path);write(favKey,on?list.filter(x=>!(x.site===site&&x.path===path)):[entry,...list].slice(0,80));refresh()});refresh();
+})();
+</script>
+<style>
+.utilities{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.utilities button,.utilities a{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:9px;background:transparent;box-shadow:none;color:var(--ink);font-size:1.25rem;text-decoration:none;padding:0;line-height:1}
+.utilities button:hover,.utilities a:hover{background:var(--accent-light);color:var(--accent);transform:none;box-shadow:none}
+</style>
