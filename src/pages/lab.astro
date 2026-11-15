@@ -1,0 +1,5 @@
+---
+import Base from '../layouts/Base.astro';
+const key=process.env.SITE_KEY||'weather';
+---
+<Base><h1>実験室</h1><section class="panel"><p>{key==='math'?'二次関数 y=ax²+bx+c のグラフ':key==='rail'?'加減速を考慮した簡易所要時間モデル':key==='weather'?'乾燥断熱減率 9.8 ℃/km を使った気温の近似':key==='english'?'接客英語の基本表現':'文字数・UTF-8バイト数の確認'}</p><p><a href="/tool/">計算ツールへ</a></p>{key==='weather'&&<a href="/simulator/">気塊シミュレーターへ</a>}</section></Base>
