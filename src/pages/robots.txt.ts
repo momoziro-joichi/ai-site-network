@@ -1,0 +1,1 @@
+import type {APIRoute} from 'astro';import {sites} from '../config/sites.js';export const GET:APIRoute=()=>{const s=sites[process.env.SITE_KEY||'weather'];return new Response(s.url.includes('example.com')?'User-agent: *\nDisallow: /\n':'User-agent: *\nAllow: /\n',{headers:{'Content-Type':'text/plain; charset=utf-8'}})}
