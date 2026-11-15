@@ -1,7 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
 const key=process.env.SITE_KEY||'weather';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
-const href=(p)=>base+p;
+const href=p=>base+p;
+const titles={weather:'気象実験室',math:'数学実験室',rail:'交通実験室',english:'英語実践室',tools:'便利ツール実験室'};
+const content={weather:['気温の鉛直変化','乾燥断熱減率9.8 ℃/kmを用いて、高度と温度の関係を近似します。'],math:['二次方程式の解','判別式によって解の性質が変わります。'],rail:['列車の加速と減速','同じ距離でも最高速度と加減速度によって所要時間が変わります。'],english:['接客フレーズ','短い表現を繰り返し練習します。'],tools:['テキストの計測','文字数とバイト数は同じとは限りません。']};
 ---
-<Base><h1>実験室</h1><section class="panel"><p>{key==='math'?'二次関数 y=ax²+bx+c のグラフ':key==='rail'?'加減速を考慮した簡易所要時間モデル':key==='weather'?'乾燥断熱減率 9.8 ℃/km を使った気温の近似':key==='english'?'接客英語の基本表現':'文字数・UTF-8バイト数の確認'}</p><p><a href={href('/tool/')}>計算ツールへ</a></p>{key==='weather'&&<a href={href('/simulator/')}>気塊シミュレーターへ</a>}</section></Base>
+<Base title={titles[key]}><PageIntro eyebrow="DISCOVERY LAB" title={titles[key]} description="仕組みを知り、実際に試して理解を深める。" number="◎"/><section class="panel lab-panel"><div class="lab-index">EXPERIMENT 01</div><h2>{content[key][0]}</h2><p>{content[key][1]}</p><div class="lab-links"><a class="lab-link" href={href('/tool/')}>計算ツールを開く <span>↗</span></a>{key==='weather'&&<a class="lab-link secondary" href={href('/simulator/')}>気塊シミュレーター <span>↗</span></a>}</div></section></Base>
+<style>.lab-panel{padding:clamp(25px,5vw,55px)}.lab-index{font-size:.72rem;letter-spacing:.18em;font-weight:800;color:var(--accent)}.lab-panel h2{margin:15px 0}.lab-panel p{color:#66778e;line-height:2}.lab-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.lab-link{display:flex;align-items:center;gap:24px;background:var(--accent);color:white;text-decoration:none;border-radius:12px;padding:12px 18px;font-weight:800;font-size:.86rem}.lab-link.secondary{background:var(--accent-light);color:var(--accent)}</style>
