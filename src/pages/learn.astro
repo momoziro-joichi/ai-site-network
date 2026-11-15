@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
 const chapters=[['大気の構造','対流圏では平均的に高度とともに気温が下がる。'],['気温と熱','温度と熱量は異なる概念である。'],['気圧','気圧は単位面積に作用する力である。'],['湿度','相対湿度は水蒸気圧と飽和水蒸気圧の比である。'],['雲の形成','空気が上昇して冷えると凝結が起こり得る。'],['断熱変化','外部との熱の出入りがない変化を断熱変化という。'],['風','気圧傾度力とコリオリ力が風に影響する。'],['前線','性質の異なる気団の境界付近に前線が形成される。'],['低気圧','低気圧の周辺では上昇流が生じやすい。'],['天気図','等圧線と前線の配置から気圧場を読み取る。']];
 ---
-<Base><h1>気象学の無料教科書</h1><p class="muted">基礎10章の要点。詳細な教科書への拡充を予定しています。</p>{chapters.map(([title,body],i)=><section class="panel" id={'chapter-'+(i+1)}><h2>{i+1}. {title}</h2><p>{body}</p></section>)}</Base>
+<Base title="気象学の無料教科書"><PageIntro eyebrow="WEATHER ACADEMY" title="気象学の無料教科書" description="基礎から学べる10章の要点。少しずつ知識を積み重ねよう。" number="☁"/><div class="chapter-grid">{chapters.map(([title,body],i)=><article class="panel chapter" id={'chapter-'+(i+1)}><span class="chapter-num">CHAPTER {String(i+1).padStart(2,'0')}</span><h2>{title}</h2><p>{body}</p></article>)}</div><p class="muted note">現在は各章の要点を掲載しています。詳細な教材への拡充は今後の開発項目です。</p></Base>
+<style>.chapter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.chapter{margin:0;min-height:185px}.chapter-num{color:var(--accent);font-size:.72rem;font-weight:800;letter-spacing:.15em}.chapter h2{font-size:1.18rem;margin:15px 0 10px}.chapter p{font-size:.86rem;color:#66778e;line-height:1.9}.note{font-size:.78rem;margin-top:22px}@media(max-width:650px){.chapter-grid{grid-template-columns:1fr}}</style>
