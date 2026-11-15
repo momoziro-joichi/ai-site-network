@@ -1,11 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
-const key=process.env.SITE_KEY||'weather';
-const base=import.meta.env.BASE_URL.replace(/\/$/,'');
-const href=p=>base+p;
-const titles={weather:'気象実験室',math:'数学実験室',rail:'交通実験室',english:'英語実践室',tools:'便利ツール実験室'};
-const content={weather:['気温の鉛直変化','乾燥断熱減率9.8 ℃/kmを用いて、高度と温度の関係を近似します。'],math:['二次方程式の解','判別式によって解の性質が変わります。'],rail:['列車の加速と減速','同じ距離でも最高速度と加減速度によって所要時間が変わります。'],english:['接客フレーズ','短い表現を繰り返し練習します。'],tools:['テキストの計測','文字数とバイト数は同じとは限りません。']};
+import {curricula} from '../config/curricula.mjs';
+const key=process.env.SITE_KEY||'weather',data=curricula[key],base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const experiments={weather:[['気塊の上昇と雲底','/simulator/','気温・湿度・高度の関係を観察'],['天気図読解ワークスペース','/chart-studio/','気圧配置と前線を描き込む'],['高低気圧の模式図','/weather-map/','気圧差と等圧線の関係を試す']],math:[['二次関数の可視化','/math-visualizer/','係数と放物線の関係を確認'],['二次方程式の解','/tool/','判別式と解を計算']],rail:[['速度・時間グラフ','/rail-performance/','加減速を視覚的に比較'],['駅間走行時間','/tool/','停車時間を含むモデルを試算']],english:[['接客英語トレーナー','/english-practice/','12のフレーズを繰り返し練習'],['袋の確認クイズ','/tool/','接客の基本表現を確認']],tools:[['文章チェック','/text-workbench/','入力しながら文字数を計測'],['文字数カウンター','/tool/','バイト数・行数を確認']]};
 ---
-<Base title={titles[key]}><PageIntro eyebrow="DISCOVERY LAB" title={titles[key]} description="仕組みを知り、実際に試して理解を深める。" number="◎"/><section class="panel lab-panel"><div class="lab-index">EXPERIMENT 01</div><h2>{content[key][0]}</h2><p>{content[key][1]}</p><div class="lab-links"><a class="lab-link" href={href('/tool/')}>計算ツールを開く <span>↗</span></a>{key==='weather'&&<a class="lab-link secondary" href={href('/simulator/')}>気塊シミュレーター <span>↗</span></a>}</div></section></Base>
-<style>.lab-panel{padding:clamp(25px,5vw,55px)}.lab-index{font-size:.72rem;letter-spacing:.18em;font-weight:800;color:var(--accent)}.lab-panel h2{margin:15px 0}.lab-panel p{color:#66778e;line-height:2}.lab-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.lab-link{display:flex;align-items:center;gap:24px;background:var(--accent);color:white;text-decoration:none;border-radius:12px;padding:12px 18px;font-weight:800;font-size:.86rem}.lab-link.secondary{background:var(--accent-light);color:var(--accent)}</style>
+<Base title="実験室"><PageIntro eyebrow="INTERACTIVE LAB" title="実験室" description={data.description} number="◎"/><div class="experiments">{experiments[key].map(([title,path,description],i)=><a class="panel experiment" href={base+path}><span>EXPERIMENT {String(i+1).padStart(2,'0')}</span><h2>{title}</h2><p>{description}</p><strong>実験を開く ↗</strong></a>)}</div></Base>
+<style>.experiments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.experiment{margin:0;min-height:230px;text-decoration:none;transition:transform .2s}.experiment:hover{transform:translateY(-4px)}.experiment span{color:var(--accent);font-size:.7rem;font-weight:800;letter-spacing:.14em}.experiment h2{margin:18px 0 10px}.experiment p{font-size:.85rem;color:var(--muted);line-height:1.9}.experiment strong{font-size:.83rem;color:var(--accent)}@media(max-width:700px){.experiments{grid-template-columns:1fr}}</style>
