@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
-const key=process.env.SITE_KEY||'weather';
-const guides={weather:[['気温と湿度','湿度は空気中の水蒸気の状態を表す。相対湿度は、同じ温度での飽和水蒸気圧に対する水蒸気圧の比を百分率で示す。'],['露点','空気を冷却して飽和に達する温度を露点という。']],math:[['二次方程式','ax²+bx+c=0（a≠0）の判別式はD=b²−4ac。'],['判別式と解','D>0で異なる実数解2つ、D=0で重解、D<0で複素数解となる。']],rail:[['所要時間の考え方','最高速度と平均速度は異なる。列車は加速・減速するため、単純な距離÷最高速度は実際の所要時間より短くなる。'],['計算モデルの限界','停車、速度制限、勾配、曲線、信号、余裕時分を考慮しない簡易モデルである。']],english:[['コンビニ接客英語','Do you need a bag? は「袋は必要ですか？」という意味。'],['丁寧な聞き返し','Could you say that again, please? は「もう一度言っていただけますか？」という意味。']],tools:[['文字数の数え方','画面に見える文字数とUTF-8バイト数は一致しない場合がある。'],['文字とバイト','UTF-8では日本語の多くの文字が3バイトで表される。']]};
+import {curricula} from '../config/curricula.mjs';
+const key=process.env.SITE_KEY||'weather',data=curricula[key];
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 ---
-<Base title="学習ガイド"><PageIntro eyebrow="KNOWLEDGE BASE" title="学習ガイド" description="ツールをもっと深く使うための、基本知識をまとめました。" number="≡"/><div class="guide-grid">{guides[key].map(([title,body],i)=><article class="panel guide-card"><span class="guide-index">GUIDE / {String(i+1).padStart(2,'0')}</span><h2>{title}</h2><p>{body}</p></article>)}</div></Base>
-<style>.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.guide-card{margin:0;min-height:215px}.guide-index{font-size:.72rem;font-weight:800;letter-spacing:.15em;color:var(--accent)}.guide-card h2{margin:17px 0 12px}.guide-card p{color:#66778e;font-size:.89rem;line-height:2}@media(max-width:700px){.guide-grid{grid-template-columns:1fr}}</style>
+<Base title="学習ガイド"><PageIntro eyebrow="LEARNING ROADMAP" title="学習ガイド" description={data.description} number="≡"/><div class="roadmap">{data.tracks.map(([name,description],i)=><article class="panel chapter"><span class="chapter-no">STEP {String(i+1).padStart(2,'0')}</span><h2>{name}</h2><p>{description}</p></article>)}</div><section class="panel"><h2>実際に試す</h2><div class="resources">{data.links.map(([name,path])=><a href={base+path}>{name} ↗</a>)}</div><p class="muted">このページは学習順序の案内です。掲載していない分野について、教材が完成したように表示していません。</p></section></Base>
+<style>.roadmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.chapter{margin:0;min-height:220px}.chapter-no{font-size:.7rem;color:var(--accent);letter-spacing:.14em;font-weight:800}.chapter h2{margin:15px 0}.chapter p{color:var(--muted);font-size:.87rem;line-height:1.9}.resources{display:flex;gap:12px;flex-wrap:wrap}.resources a{padding:12px 15px;background:var(--accent-light);text-decoration:none;border-radius:12px;font-weight:700;font-size:.85rem}.muted{margin-top:20px;font-size:.8rem}@media(max-width:800px){.roadmap{grid-template-columns:1fr}}</style>
