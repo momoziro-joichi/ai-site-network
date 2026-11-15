@@ -1,18 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
 import {sites} from '../config/sites.js';
+import {curricula} from '../config/curricula.mjs';
 const key=process.env.SITE_KEY||'weather';
 const s=sites[key];
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const href=(p)=>base+p;
 const config={
-weather:{eyebrow:'WEATHER SCIENCE / LEARNING LAB',heading:'空を知る。\n世界が変わる。',lead:'気象のしくみを、読む・解く・動かす。身近な空から始める、科学の学習室。',symbol:'☁',features:[['01','気象の教科書','大気・気圧・雲など、基礎を章ごとに整理。','/learn/'],['02','確認問題','知識を確かめる4問のミニクイズ。','/quiz/'],['03','最新の気象情報','気象庁の府県天気予報を表示。','/live-weather/']]},
+weather:{eyebrow:'WEATHER SCIENCE / LEARNING LAB',heading:'空を知る。\n世界が変わる。',lead:'気象のしくみを、読む・解く・動かす。身近な空から始める、科学の学習室。',symbol:'☁',features:[['01','気象の教科書','大気・気圧・雲など、基礎を章ごとに整理。','/learn/'],['02','確認問題','100問（計算反復問題を含む）の練習。','/quiz/'],['03','最新の気象情報','気象庁の府県天気予報を表示。','/live-weather/']]},
 math:{eyebrow:'MATHEMATICS / TOOL LAB',heading:'数式の向こうに、\n発見がある。',lead:'計算するだけで終わらない。数と式の関係を、手を動かして確かめよう。',symbol:'∑',features:[['01','二次方程式ツール','係数を入力して解と判別式を確認。','/tool/'],['02','数学実験室','数式を直感的に理解するための入口。','/lab/'],['03','基礎ガイド','数学の考え方をコンパクトに整理。','/guide/']]},
 rail:{eyebrow:'RAILWAY / GEOGRAPHY LAB',heading:'移動を、\n数字で読み解く。',lead:'距離、速度、時間。鉄道と地理の世界を、データの視点から探究する。',symbol:'↗',features:[['01','所要時間計算','加減速を考慮した簡易モデルで計算。','/tool/'],['02','交通実験室','鉄道の運行モデルを学ぶ入口。','/lab/'],['03','基礎ガイド','平均速度と最高速度の違いを理解。','/guide/']]},
 english:{eyebrow:'ENGLISH / DAILY PRACTICE',heading:'使える英語を、\n少しずつ。',lead:'日常の一言から始める英語学習。短く、気軽に、毎日続けよう。',symbol:'Aa',features:[['01','接客英語クイズ','よく使う英語表現を選択式で練習。','/tool/'],['02','英語実験室','実践的なフレーズの学習入口。','/lab/'],['03','基礎ガイド','身近な英語の使い方を確認。','/guide/']]},
 tools:{eyebrow:'EVERYDAY / UTILITY TOOLS',heading:'ちょっと便利を、\nもっと手軽に。',lead:'日々の小さな作業をすばやく。シンプルで使いやすい無料ツール。',symbol:'✳',features:[['01','文字数カウント','文章の文字数・行数・バイト数を計算。','/tool/'],['02','ツール実験室','便利な機能を探すための入口。','/lab/'],['03','使い方ガイド','文字数とバイト数の違いを解説。','/guide/']]}
 };
 const v=config[key];
+const curriculum=curricula[key];
 ---
 <Base>
 <section class="hero">
@@ -20,7 +22,7 @@ const v=config[key];
 <div class="hero-visual" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="visual-core">{v.symbol}</div><div class="float-label label-one">EXPLORE <span>↗</span></div><div class="float-label label-two">LEARN · CREATE</div><div class="visual-dots"></div></div>
 </section>
 <section class="features"><div class="section-heading"><div><p class="eyebrow">EXPLORE THE SITE</p><h2>ここから始めよう。</h2></div><p>興味のあるテーマを選んで、<br/>自由に学び、試してみてください。</p></div><div class="feature-grid">{v.features.map(([number,title,description,path])=><a class="feature-card" href={href(path)}><span class="feature-top"><span class="feature-number">{number}</span><span class="feature-arrow" aria-hidden="true">↗</span></span><h3>{title}</h3><p>{description}</p><span class="feature-more">詳しく見る <span aria-hidden="true">→</span></span></a>)}</div></section>
-<section class="bottom-banner"><div><p class="eyebrow">START EXPLORING</p><h2>まずは、ひとつ試してみよう。</h2><p>気になる機能から、気軽にスタート。</p></div><a href={href('/tool/')}>ツールを開く <span aria-hidden="true">↗</span></a></section>
+<section class="curriculum"><div class="section-heading"><div><p class="eyebrow">LEARNING PATH</p><h2>学び方を選ぶ。</h2></div></div><p class="curriculum-lead">{curriculum.description}</p><div class="track-grid">{curriculum.tracks.map(([name,description],i)=><article class="track-card"><span class="track-number">TRACK {String(i+1).padStart(2,'0')}</span><h3>{name}</h3><p>{description}</p></article>)}</div><div class="resource-links">{curriculum.links.map(([name,path])=><a href={href(path)}>{name} ↗</a>)}</div></section><section class="bottom-banner"><div><p class="eyebrow">START EXPLORING</p><h2>まずは、ひとつ試してみよう。</h2><p>気になる機能から、気軽にスタート。</p></div><a href={href('/tool/')}>ツールを開く <span aria-hidden="true">↗</span></a></section>
 <div class="ad">広告枠（現在配信なし）</div>
 </Base>
 <style>
@@ -49,4 +51,5 @@ const v=config[key];
 .bottom-banner{display:flex;justify-content:space-between;align-items:center;gap:20px;background:#19283d;color:#fff;border-radius:25px;padding:36px 40px;margin-bottom:28px}.bottom-banner h2{color:#fff;margin:0 0 10px}.bottom-banner p{color:#bac6d6;margin:0;font-size:.85rem}.bottom-banner .eyebrow{color:#8cbedf;margin-bottom:9px}.bottom-banner>a{background:white;color:#19283d;padding:13px 19px;border-radius:11px;text-decoration:none;font-weight:800;font-size:.83rem;white-space:nowrap}
 @media(max-width:850px){.hero{grid-template-columns:1fr;min-height:0;padding:18px 0 42px}.hero-visual{height:260px;max-width:560px;width:100%;margin:auto}.visual-core{width:135px;height:135px;border-radius:32px;font-size:4.5rem}.orbit{width:210px;height:210px}.orbit-two{width:300px;height:300px}.feature-grid{grid-template-columns:1fr}.feature-card{min-height:185px}.feature-card h3{margin-top:15px}.section-heading>p{display:none}}
 @media(max-width:520px){.hero h1{font-size:clamp(2.45rem,11vw,3.4rem)}.hero-visual{height:225px;border-radius:22px}.bottom-banner{flex-direction:column;align-items:flex-start;padding:27px 25px}.bottom-banner>a{width:100%;text-align:center}.hero-actions{gap:9px}.primary-action,.secondary-action{padding:12px 14px}}
+.curriculum{margin:20px 0 75px}.curriculum-lead{color:var(--muted);max-width:760px}.track-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-top:25px}.track-card{border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:26px}.track-number{font-size:.7rem;font-weight:800;color:var(--accent);letter-spacing:.15em}.track-card h3{margin:13px 0}.track-card p{font-size:.85rem;color:var(--muted);line-height:1.9}.resource-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.resource-links a{padding:10px 15px;background:var(--accent-light);color:var(--accent);text-decoration:none;border-radius:10px;font-size:.82rem;font-weight:700}@media(max-width:800px){.track-grid{grid-template-columns:1fr}}
 </style>
