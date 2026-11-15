@@ -7,11 +7,11 @@ const s=sites[key];
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const href=(p)=>base+p;
 const config={
-weather:{eyebrow:'WEATHER SCIENCE / LEARNING LAB',heading:'空を知る。\n世界が変わる。',lead:'気象のしくみを、読む・解く・動かす。身近な空から始める、科学の学習室。',symbol:'☁',features:[['01','気象の教科書','大気・気圧・雲など、基礎を章ごとに整理。','/learn/'],['02','確認問題','100問（計算反復問題を含む）の練習。','/quiz/'],['03','最新の気象情報','気象庁の府県天気予報を表示。','/live-weather/']]},
-math:{eyebrow:'MATHEMATICS / TOOL LAB',heading:'数式の向こうに、\n発見がある。',lead:'計算するだけで終わらない。数と式の関係を、手を動かして確かめよう。',symbol:'∑',features:[['01','二次方程式ツール','係数を入力して解と判別式を確認。','/tool/'],['02','数学実験室','数式を直感的に理解するための入口。','/lab/'],['03','基礎ガイド','数学の考え方をコンパクトに整理。','/guide/']]},
-rail:{eyebrow:'RAILWAY / GEOGRAPHY LAB',heading:'移動を、\n数字で読み解く。',lead:'距離、速度、時間。鉄道と地理の世界を、データの視点から探究する。',symbol:'↗',features:[['01','所要時間計算','加減速を考慮した簡易モデルで計算。','/tool/'],['02','交通実験室','鉄道の運行モデルを学ぶ入口。','/lab/'],['03','基礎ガイド','平均速度と最高速度の違いを理解。','/guide/']]},
-english:{eyebrow:'ENGLISH / DAILY PRACTICE',heading:'使える英語を、\n少しずつ。',lead:'日常の一言から始める英語学習。短く、気軽に、毎日続けよう。',symbol:'Aa',features:[['01','接客英語クイズ','よく使う英語表現を選択式で練習。','/tool/'],['02','英語実験室','実践的なフレーズの学習入口。','/lab/'],['03','基礎ガイド','身近な英語の使い方を確認。','/guide/']]},
-tools:{eyebrow:'EVERYDAY / UTILITY TOOLS',heading:'ちょっと便利を、\nもっと手軽に。',lead:'日々の小さな作業をすばやく。シンプルで使いやすい無料ツール。',symbol:'✳',features:[['01','文字数カウント','文章の文字数・行数・バイト数を計算。','/tool/'],['02','ツール実験室','便利な機能を探すための入口。','/lab/'],['03','使い方ガイド','文字数とバイト数の違いを解説。','/guide/']]}
+weather:{eyebrow:'WEATHER SCIENCE / LEARNING LAB',heading:'空を知る。\n世界が変わる。',lead:'気象のしくみを、読む・解く・動かす。身近な空から始める、科学の学習室。',symbol:'☁',features:[['01','気象の教科書','大気・気圧・雲など、基礎を章ごとに整理。','/learn/'],['02','確認問題','112問（計算反復問題を含む）の練習。','/quiz/'],['03','最新の気象情報','気象庁の府県天気予報を表示。','/live-weather/']]},
+math:{eyebrow:'MATHEMATICS / TOOL LAB',heading:'数式の向こうに、\n発見がある。',lead:'計算するだけで終わらない。数と式の関係を、手を動かして確かめよう。',symbol:'∑',features:[['01','二次方程式ツール','係数を入力して解と判別式を確認。','/tool/'],['02','二次関数グラフ','係数と放物線の関係を可視化。','/math-visualizer/'],['03','基礎ガイド','数学の考え方をコンパクトに整理。','/guide/']]},
+rail:{eyebrow:'RAILWAY / GEOGRAPHY LAB',heading:'移動を、\n数字で読み解く。',lead:'距離、速度、時間。鉄道と地理の世界を、データの視点から探究する。',symbol:'↗',features:[['01','所要時間計算','加減速を考慮した簡易モデルで計算。','/tool/'],['02','速度グラフ実験','加減速をグラフで確認。','/rail-performance/'],['03','基礎ガイド','平均速度と最高速度の違いを理解。','/guide/']]},
+english:{eyebrow:'ENGLISH / DAILY PRACTICE',heading:'使える英語を、\n少しずつ。',lead:'日常の一言から始める英語学習。短く、気軽に、毎日続けよう。',symbol:'Aa',features:[['01','接客英語トレーナー','12の接客場面をカードで練習。','/english-practice/'],['02','英語実験室','実践的なフレーズの学習入口。','/lab/'],['03','基礎ガイド','身近な英語の使い方を確認。','/guide/']]},
+tools:{eyebrow:'EVERYDAY / UTILITY TOOLS',heading:'ちょっと便利を、\nもっと手軽に。',lead:'日々の小さな作業をすばやく。シンプルで使いやすい無料ツール。',symbol:'✳',features:[['01','文字数カウント','文章の文字数・行数・バイト数を計算。','/tool/'],['02','文章チェック','入力と同時に文字数を表示。','/text-workbench/'],['03','使い方ガイド','文字数とバイト数の違いを解説。','/guide/']]}
 };
 const v=config[key];
 const curriculum=curricula[key];
