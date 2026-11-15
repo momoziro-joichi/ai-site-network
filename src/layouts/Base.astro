@@ -64,7 +64,7 @@ html[data-theme='dark']{color-scheme:dark;--ink:#ecf3fc;--muted:#a7b5c8;--line:#
 <a class="brand" href={href('/')}><span class="brand-mark" aria-hidden="true">{icon}</span><span>{site.name}</span></a>
 <div class="nav-links">
 <a href={href('/tool/')}>ツール</a><a href={href('/lab/')}>実験室</a><a href={href('/guide/')}>ガイド</a>
-{key==='weather'&&<><a href={href('/learn/')}>教科書</a><a href={href('/quiz/')}>問題</a><a href={href('/simulator/')}>シミュレーター</a><a href={href('/live-weather/')}>最新予報</a><a href={href('/official-charts/')}>実況天気図</a><a href={href('/weather-map/')}>天気図</a><a href={href('/cloud-lab/')}>雲の実験</a></>}
+{key==='weather'&&<><a href={href('/learn/')}>教科書</a><a href={href('/quiz/')}>問題</a><a href={href('/simulator/')}>シミュレーター</a><a href={href('/live-weather/')}>最新予報</a><a href={href('/official-charts/')}>実況天気図</a><a href={href('/chart-studio/')}>天気図演習</a><a href={href('/weather-map/')}>天気図</a><a href={href('/cloud-lab/')}>雲の実験</a></>}
 </div><Utilities /></nav></header>
 <main id="content"><slot/></main>
 <footer class="site-footer"><div class="footer-inner"><p>© {new Date().getFullYear()} {site.name}</p><div><a href={href('/about/')}>運営情報</a>　·　<a href={href('/privacy/')}>プライバシー</a></div></div></footer>
