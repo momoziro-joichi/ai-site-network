@@ -34,3 +34,12 @@ npm run build:all
 ## 開発上の注意
 
 気象・鉄道の数値モデルは教育用近似であり、気象予報や実際の運行計画には利用できません。
+
+## GitHub Pages公開
+
+1. リポジトリをPublicに変更する。
+2. GitHub Settings → Pages → Build and deployment → Source を **GitHub Actions** に変更する。
+3. Actions → Deploy five sites to GitHub Pages を実行する（または main にpushする）。
+4. ワークフロー成功後、`https://momoziro-joichi.github.io/ai-site-network/` にアクセスする。
+
+5サイトは `/weather/`、`/math/`、`/rail/`、`/english/`、`/tools/` からアクセスできます。現時点では**公開の成功は未確認**です。
