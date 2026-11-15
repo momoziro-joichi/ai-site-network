@@ -1,31 +1,36 @@
 # AI Site Network
 
-5つの独立した無料WebサイトをAstroで開発するモノレポです。
+Astroを用いた5つの独立した無料Webサイトのモノレポ。
 
-- 気象予報士の研究室
-- 数学・理工学ツールラボ
-- 鉄道・地理データ研究所
-- 英語学習ラボ
-- 便利ツール集
+| SITE_KEY | サイト |
+|---|---|
+| weather | 気象予報士の研究室 |
+| math | 数学・理工学ツールラボ |
+| rail | 鉄道・地理データ研究所 |
+| english | 英語学習ラボ |
+| tools | 便利ツール集 |
 
-## 現状
+## 起動・テスト
 
-開発済みソースコードはローカル成果物 `ai-site-network-v0.6.zip` にあります。GitHub上にはまだ全ファイルが登録されていません。ビルド・公開・広告・解析は未完了です。
-
-## ソースコードを登録する
-
-ZIPを展開したフォルダ内で、以下を実行してください。
+Node.js 22以上を推奨。
 
 ```bash
-git init
-git branch -M main
-git remote add origin https://github.com/momoziro-joichi/ai-site-network.git
-git add .
-git commit -m "Import AI Site Network v0.6"
-git pull --rebase origin main
-git push -u origin main
+npm install
+npm test
+SITE_KEY=weather npm run dev
+npm run build:all
 ```
 
-Node.js 22以上を使用し、`npm install`、`npm test`、`npm run build:all` で検証します。
+各サイトは `SITE_KEY` に応じて出力先が `dist/<SITE_KEY>` になります。
 
-**注意:** `SITE_KEY` は `weather`, `math`, `rail`, `english`, `tools` のいずれかです。広告収益・月収目標は保証されません。
+## 現在の実装状況
+
+基本画面、計算ツール、簡易教材、気象問題、気塊モデル、GitHub Actionsを実装しました。ただしGitHub上のコードはローカルv0.6の**簡略版**であり、すべての機能が一致するわけではありません。実際のAstroビルドとブラウザ動作は未検証です。
+
+## 公開
+
+本番公開前に `src/config/sites.js` の仮URLを実URLへ変更し、広告・解析・プライバシー表示を整備してください。仮URLの間は検索エンジンにnoindexを指定します。Cloudflare PagesやVercelへの公開はまだ行っていません。収益は保証されません。
+
+## 開発上の注意
+
+気象・鉄道の数値モデルは教育用近似であり、気象予報や実際の運行計画には利用できません。
