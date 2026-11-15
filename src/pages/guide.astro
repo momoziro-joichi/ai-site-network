@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+const key=process.env.SITE_KEY||'weather';
+const guides={weather:['気温と湿度','湿度は空気中の水蒸気の状態を表す。'],math:['二次方程式','判別式 D=b²−4ac が正なら実数解2つ、0なら重解、負なら複素数解となる。'],rail:['所要時間の考え方','平均速度と最高速度は異なる。加速・減速・停車時間を区別する。'],english:['コンビニ接客英語','Do you need a bag? は「袋は必要ですか？」という意味。'],tools:['文字数の数え方','文字数とUTF-8バイト数は一致しない場合がある。']};
+---
+<Base><h1>{guides[key][0]}</h1><section class="panel"><p>{guides[key][1]}</p></section></Base>
