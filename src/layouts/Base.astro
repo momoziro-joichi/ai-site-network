@@ -1,5 +1,6 @@
 ---
 import { sites } from '../config/sites.js';
+import Utilities from '../components/Utilities.astro';
 const key=process.env.SITE_KEY||'weather';
 const site=sites[key];
 const {title=site.name,description=site.description}=Astro.props;
@@ -55,6 +56,7 @@ output{display:block;white-space:pre-wrap;font-weight:700;margin-top:12px}
 fieldset{border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:18px}
 @media(max-width:760px){.site-nav{padding:12px 18px;align-items:flex-start;flex-direction:column;gap:10px}.nav-links{width:100%;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:2px}.nav-links a{white-space:nowrap;padding:7px 10px}main{padding:30px 18px 60px}.brand{font-size:.9rem}.panel{border-radius:18px}.footer-inner{padding:25px 18px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+html[data-theme='dark']{color-scheme:dark;--ink:#ecf3fc;--muted:#a7b5c8;--line:#33435a;--surface:#1c293c;--accent-light:color-mix(in srgb,var(--accent) 22%,#1c293c);background:#111b2b;color:#ecf3fc}html[data-theme='dark'] body{background:#111b2b;color:#ecf3fc}html[data-theme='dark'] .site-header,html[data-theme='dark'] .site-footer{background:#172337;border-color:#33435a}html[data-theme='dark'] .brand,html[data-theme='dark'] .nav-links a,html[data-theme='dark'] .footer-inner a{color:#ecf3fc}html[data-theme='dark'] .panel,html[data-theme='dark'] .feature-card,html[data-theme='dark'] .page-intro{background:#1c293c;border-color:#33435a}html[data-theme='dark'] input,html[data-theme='dark'] select,html[data-theme='dark'] textarea{background:#25364b;color:#f3f7fc;border-color:#51617a}html[data-theme='dark'] .hero-visual,html[data-theme='dark'] .result-surface{background:#25364b}html[data-theme='dark'] .feature-card h3,html[data-theme='dark'] .page-intro h1{color:#ecf3fc}
 </style>
 </head>
 <body>
@@ -62,8 +64,8 @@ fieldset{border:1px solid var(--line);border-radius:14px;margin:12px 0;padding:1
 <a class="brand" href={href('/')}><span class="brand-mark" aria-hidden="true">{icon}</span><span>{site.name}</span></a>
 <div class="nav-links">
 <a href={href('/tool/')}>ツール</a><a href={href('/lab/')}>実験室</a><a href={href('/guide/')}>ガイド</a>
-{key==='weather'&&<><a href={href('/learn/')}>教科書</a><a href={href('/quiz/')}>問題</a><a href={href('/simulator/')}>シミュレーター</a></>}
-</div></nav></header>
+{key==='weather'&&<><a href={href('/learn/')}>教科書</a><a href={href('/quiz/')}>問題</a><a href={href('/simulator/')}>シミュレーター</a><a href={href('/weather-map/')}>天気図</a><a href={href('/cloud-lab/')}>雲の実験</a></>}
+</div><Utilities /></nav></header>
 <main id="content"><slot/></main>
 <footer class="site-footer"><div class="footer-inner"><p>© {new Date().getFullYear()} {site.name}</p><div><a href={href('/about/')}>運営情報</a>　·　<a href={href('/privacy/')}>プライバシー</a></div></div></footer>
 </body></html>
